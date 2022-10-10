@@ -379,6 +379,25 @@ void problem1_6q()
     std::cout << prime;
 }
 
+void problem1_7()
+{
+    int year;
+
+    std::cout << "Enter year: ";
+    std::cin >> year;
+
+    bool isLeapYear = year % 4 == 0;
+
+    if(isLeapYear)
+    {
+        std::cout << "The year is leap";
+    }
+    else
+    {
+        std::cout << "The year is NOT leap";
+    }
+}
+
 
 int main()
 {
@@ -403,6 +422,7 @@ int main()
     //problem1_6o();
     //problem1_6p();
     //problem1_6q();
+    //problem1_7();
 
     return 0;
 }
