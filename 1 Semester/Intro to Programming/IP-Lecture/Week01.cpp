@@ -98,7 +98,7 @@ void problem1_6a()
 
     bool isDivisible = p % 4 == 0 || p % 7 == 0;
 
-    std::cout << isDivisible;
+    std::cout << std::boolalpha << isDivisible;
 }
 
 void problem1_6b()
@@ -116,7 +116,7 @@ void problem1_6b()
 
     bool doesntHaveRealRoots = (b * b - 4 * a * c) < 0;
 
-    std::cout << doesntHaveRealRoots;
+    std::cout << std::boolalpha << doesntHaveRealRoots;
 }
 
 void problem1_6c()
@@ -131,7 +131,7 @@ void problem1_6c()
 
     bool isInside = sqrt(a * a + (b - 1) * (b - 1)) < 5;
 
-    std::cout << isInside;
+    std::cout << std::boolalpha << isInside;
 }
 
 void problem1_6d()
@@ -146,7 +146,7 @@ void problem1_6d()
 
     bool isInsideAndInIIIQuadrant = a < 0 && b < 0 && sqrt(a * a + (b) * (b)) <= 5;
 
-    std::cout << isInsideAndInIIIQuadrant;
+    std::cout << std::boolalpha << isInsideAndInIIIQuadrant;
 }
 
 void problem1_6e()
@@ -161,7 +161,7 @@ void problem1_6e()
 
     bool isOnFigure = sqrt(a * a + (b) * (b)) == 5 || sqrt(a * a + (b) * (b)) == 10;
 
-    std::cout << isOnFigure;
+    std::cout << std::boolalpha << isOnFigure;
 }
 
 void problem1_6f()
@@ -173,7 +173,7 @@ void problem1_6f()
 
     bool in = x >= 0 && x <= 1;
 
-    std::cout << in;
+    std::cout << std::boolalpha << in;
 }
 
 void problem1_6g()
@@ -193,7 +193,7 @@ void problem1_6g()
     std::cin >> x;
 
     bool equal = std::max(std::max(a, b), c) == x;
-    std::cout << equal;
+    std::cout << std::boolalpha << equal;
 }
 
 void problem1_6h()
@@ -213,7 +213,7 @@ void problem1_6h()
     std::cin >> x;
 
     bool different = std::max(std::max(a, b), c) != x;
-    std::cout << different;
+    std::cout << std::boolalpha << different;
 }
 
 void problem1_6i()
@@ -226,7 +226,7 @@ void problem1_6i()
     std::cout << "Enter y: ";
     std::cin >> y;
 
-    std::cout << x || y;
+    std::cout << std::boolalpha << x || y;
 }
 
 void problem1_6j()
@@ -239,7 +239,7 @@ void problem1_6j()
     std::cout << "Enter y: ";
     std::cin >> y;
 
-    std::cout << x && y;
+    std::cout << std::boolalpha << x && y;
 }
 
 void problem1_6k()
@@ -257,7 +257,7 @@ void problem1_6k()
 
     bool allNotPositive = a <= 0 && b <= 0 && c <= 0;
 
-    std::cout << allNotPositive;
+    std::cout << std::boolalpha << allNotPositive;
 }
 
 void problem1_6l()
@@ -277,7 +277,7 @@ void problem1_6l()
 
     contains7 = p % 10 == 7 || contains7;
 
-    std::cout << contains7;
+    std::cout << std::boolalpha << contains7;
 }
 
 void problem1_6m()
@@ -297,7 +297,7 @@ void problem1_6m()
 
     bool different = a != b && a != c && b != c;
 
-    std::cout << different;
+    std::cout << std::boolalpha << different;
 }
 
 void problem1_6n()
@@ -317,7 +317,7 @@ void problem1_6n()
 
     bool twoEqualDigits = a == b || b == c || a == c;
 
-    std::cout << twoEqualDigits;
+    std::cout << std::boolalpha << twoEqualDigits;
 }
 
 void problem1_6o()
@@ -337,7 +337,7 @@ void problem1_6o()
 
     bool increaseOrDegrease = (a > b && b > c) || (a < b && b < c);
 
-    std::cout << increaseOrDegrease;
+    std::cout << std::boolalpha << increaseOrDegrease;
 }
 
 void problem1_6p()
@@ -364,7 +364,7 @@ void problem1_6p()
 
     bool symmetric = a1 == c2 && a1 != 0 && b1 == b2 && c1 == a2 && c1 != 0;
 
-    std::cout << symmetric;
+    std::cout << std::boolalpha << symmetric;
 }
 
 void problem1_6q()
@@ -376,7 +376,7 @@ void problem1_6q()
 
     bool prime = x != 1 && x % 2 != 0 && x % 3 != 0;
 
-    std::cout << prime;
+    std::cout << std::boolalpha << prime;
 }
 
 void problem1_7()
