@@ -1,3 +1,5 @@
+//Problems from https://www.hackerrank.com/contests/week-04-functions/challenges
+
 #include <iostream>
 #include <cmath>
 #include <cstring>
@@ -197,15 +199,242 @@ void calculateTime()
 
 }
 
+long long factorial(int n)
+{
+    long long fact = 1;
+
+    for(int i = 2; i <= n; i++)
+    {
+        fact *= i;
+    }
+
+    return fact;
+}
+
+long long variations(int n, int k)
+{
+    long long v = 1;
+
+    for(int i = n; i > n - k; i--)
+    {
+        v *= i;
+    }
+
+    return v;
+}
+
+void caseP(char operations[])
+{
+    int number = 0;
+
+    std::cin.getline(operations, 100);
+    int length = strlen(operations);
+
+    if(length < 2)
+    {
+        std::cout << "Invalid (n, k) input!" << std::endl;
+        return;
+    }
+
+    for(int i = 1; i < length; i++)
+    {
+        if(operations[i] == ' ')
+        {
+            std::cout << "Invalid (n, k) input!" << std::endl;
+            return;
+        }
+
+        int digit = (int)operations[i] - 48;
+
+        if(digit < 0 || digit > 9)
+        {
+            std::cout << "Invalid (n, k) input!" << std::endl;
+            return;
+        }
+
+        number += digit * pow(10, length - 1 - i);
+    }
+
+    long long fact = factorial(number);
+
+    std::cout << "P(n) = " << fact << std::endl;
+}
+
+long long reverseNumber(long long n)
+{
+    long long newN = n;
+    long long newNumber = 0;
+    int ctr = 0, length = 0;
+
+    do
+    {
+        newN /= 10;
+        length++;
+    }
+    while (newN > 0);
+
+    while (n > 0)
+    {
+        newNumber += (n % 10) * pow(10, length - 1 - ctr);
+
+        n /= 10;
+        ctr++;
+    }
+    
+    return newNumber;
+}
+
+void caseV(char operations[])
+{
+    int n = 0, k = 0;
+
+    std::cin.getline(operations, 100);
+    int length = strlen(operations);
+
+    if(length < 2)
+    {
+        std::cout << "Invalid (n, k) input!" << std::endl;
+        return;
+    }
+
+    int index = 0;
+    for(int i = 1; i < length; i++)
+    {
+        if(operations[i] == ' ')
+        {
+            index = i;
+            break;
+        }
+
+        int digit = (int)operations[i] - 48;
+
+        if(digit < 0 || digit > 9)
+        {
+            std::cout << "Invalid (n, k) input!" << std::endl;
+            return;
+        }
+
+        n += digit * pow(10, i - 1);
+    }
+    n = reverseNumber(n);
+
+    if(index == 0)
+    {
+        std::cout << "Invalid (n, k) input!" << std::endl;
+        return;
+    }
+
+    for(int i = index + 1; i < length; i++)
+    {
+        if(operations[i] == ' ')
+        {
+            std::cout << "Invalid (n, k) input!" << std::endl;
+            return;
+        }
+
+        int digit = (int)operations[i] - 48;
+
+        if(digit < 0 || digit > 9)
+        {
+            std::cout << "Invalid (n, k) input!" << std::endl;
+            return;
+        }
+
+        k += digit * pow(10, i - index - 1);
+    }
+    k = reverseNumber(k);
+
+    if(n < k)
+    {
+        std::cout << "Invalid (n, k) input!" << std::endl;
+        return;
+    }
+
+    long long variation = variations(n, k);
+
+    std::cout << "V(n, k) = " << variation << std::endl;
+}
+
+void caseC(char operations[])
+{
+    int n = 0, k = 0;
+
+    std::cin.getline(operations, 100);
+    int length = strlen(operations);
+
+    if(length < 2)
+    {
+        std::cout << "Invalid (n, k) input!" << std::endl;
+        return;
+    }
+
+    int index = 0;
+    for(int i = 1; i < length; i++)
+    {
+        if(operations[i] == ' ')
+        {
+            index = i;
+            break;
+        }
+
+        int digit = (int)operations[i] - 48;
+
+        if(digit < 0 || digit > 9)
+        {
+            std::cout << "Invalid (n, k) input!" << std::endl;
+            return;
+        }
+
+        n += digit * pow(10, i - 1);
+    }
+    n = reverseNumber(n);
+
+    if(index == 0)
+    {
+        std::cout << "Invalid (n, k) input!" << std::endl;
+        return;
+    }
+
+    for(int i = index + 1; i < length; i++)
+    {
+        if(operations[i] == ' ')
+        {
+            std::cout << "Invalid (n, k) input!" << std::endl;
+            return;
+        }
+
+        int digit = (int)operations[i] - 48;
+
+        if(digit < 0 || digit > 9)
+        {
+            std::cout << "Invalid (n, k) input!" << std::endl;
+            return;
+        }
+
+        k += digit * pow(10, i - index - 1);
+    }
+    k = reverseNumber(k);
+
+    if(n < k)
+    {
+        std::cout << "Invalid (n, k) input!" << std::endl;
+        return;
+    }
+
+    long long combination = variations(n, k) / factorial(k);
+
+    std::cout << "C(n, k) = " << combination << std::endl;
+}
+
 void combinatorics()
 {
     bool running = true;
 
-    while(true)
+    while(running)
     {
         char operations[100];
 
-        std::cin.getline(operations, 100);
+        std::cin >> operations;
 
         switch (operations[0])
         {
@@ -213,16 +442,16 @@ void combinatorics()
             running = false;
             break;
         case 'P':
-
+            caseP(operations);
             break;
         case 'V': 
-
+            caseV(operations);
             break;
         case 'C': 
-
+            caseC(operations);
             break;
         default:
-            std::cout << "Invalid command input!";
+            std::cout << "Invalid command input!" << std::endl;
             break;
         }
     }
@@ -257,61 +486,93 @@ void decimalToBinary()
 }
 
 
+void problem1()
+{
+    std::cout << absolute();
+}
+
+void problem2()
+{
+    std::cout << sign();
+}
+
+void problem3()
+{
+    if(isLeap())
+    {
+        std::cout << "Yes";
+    }
+    else
+    {
+        std::cout << "No";
+    }
+}
+
+void problem4()
+{
+    int a, b, c, d;
+    std::cin >> a;
+    std::cin >> b;
+    std::cin >> c;
+    std::cin >> d;
+    int bigger1 = max(a, b);
+    int bigger2 = max(c, d);
+    int biggest = max(bigger1, bigger2);
+    int smaller1 = min(a, b);
+    int smaller2 = min(c, d);
+    int smallest = min(smaller1, smaller2);
+    std::cout << "Min: " << smallest << std::endl;
+    std::cout << "Max: " << biggest;
+}
+
+void problem5()
+{
+    std::cout << findMostCommonDigit();
+}
+
+void problem6()
+{
+    int start, end;
+    std::cin >> start;
+    std::cin >> end;
+    printAllPrimeNumbersInInterval(start, end);
+}
+
+void problem7()
+{
+    int n;
+    std::cin >> n;
+    std::cout << std::boolalpha << isPowerOf2(n);
+}
+
+void problem8()
+{
+    calculateTime();
+}
+
+void problem9()
+{
+    combinatorics();
+}
+
+void problem10()
+{
+    decimalToBinary();
+}
+
+
 int main ()
 {
-
-    ///Problem1
-    //std::cout << absolute();
-
-    ///Problem2
-    //std::cout << sign();
-
-
-    ///Problem3
-    // if(isLeap())
-    // {
-    //     std::cout << "Yes";
-    // }
-    // else
-    // {
-    //     std::cout << "No";
-    // }
-
-    ///Problem4
-    // int a, b, c, d;
-    // std::cin >> a;
-    // std::cin >> b;
-    // std::cin >> c;
-    // std::cin >> d;
-    // int bigger1 = max(a, b);
-    // int bigger2 = max(c, d);
-    // int biggest = max(bigger1, bigger2);
-    // int smaller1 = min(a, b);
-    // int smaller2 = min(c, d);
-    // int smallest = min(smaller1, smaller2);
-    // std::cout << "Min: " << smallest << std::endl;
-    // std::cout << "Max: " << biggest;
-
-    ///Problem5
-    //std::cout << findMostCommonDigit();
-
-    ///Problem6
-    // int start, end;
-    // std::cin >> start;
-    // std::cin >> end;
-    // printAllPrimeNumbersInInterval(start, end);
-
-    ///Problem7
-    // int n;
-    // std::cin >> n;
-    // std::cout << std::boolalpha << isPowerOf2(n);
-
-    ///Problem8
-    // calculateTime();
-
-    combinatorics();
-
-    //decimalToBinary();
+    //problem1();
+    //problem2();
+    //problem3();
+    //problem4();
+    //problem5();
+    //problem6();
+    //problem7();
+    //problem8();
+    //problem9();
+    //problem10();
 
     return 0;
 }
