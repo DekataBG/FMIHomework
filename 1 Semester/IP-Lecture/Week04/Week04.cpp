@@ -48,7 +48,7 @@ void problem3_16()
 int main()
 {
     // problem3_8();
-    problem3_9();
+    //problem3_9();
     // problem3_10();
     // problem3_11();
     // problem3_12();
