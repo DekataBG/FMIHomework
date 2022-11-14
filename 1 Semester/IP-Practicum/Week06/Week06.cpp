@@ -292,6 +292,158 @@ void problem11()
     std::cout << std::boolalpha << contains(input1, length1, input2, length2);
 }
 
+void problem12()
+{
+    int n; 
+    int digits[100];
+
+    std::cout << "Enter n: ";
+    std::cin >> n;
+
+    if(n < 0)
+    {
+        std::cout << "-";
+        n *= -1;
+    }
+
+    int ctr = 0;
+    do
+    {
+        digits[ctr] = n % 10;
+        n /= 10;
+
+        ctr++;
+    } while (n > 0);
+    
+    for(int i = ctr - 1; i >= 0; i--)
+    {
+        std::cout << digits[i];
+        if(i != 0 && i % 3 == 0)
+        {
+            std::cout << ",";
+        }
+        
+    }
+}
+
+void problem13()
+{
+    bool correct = true;
+    int left = 0, right = 0;
+    char input[50];
+
+    std::cout << "Enter a string: ";
+    std::cin >> input;
+
+    int length = strlen(input);
+    for(int i = 0; i < length; i++)
+    {
+        char letter = input[i];
+
+        if(letter == '(')
+        {
+            left++;
+        }
+        else if(letter == ')')
+        {
+            right++;
+            if(right > left)
+            {
+                correct = false;
+            }
+        }
+    }
+
+    if(left != right)
+    {
+        correct = false;
+    }
+
+    std::cout << std::boolalpha << correct;
+}
+
+void problem14()
+{
+    char string[50];
+    char letter1, letter2;
+
+    std::cout << "Enter a string: ";
+    std::cin >> string;
+
+    std::cout << "Enter a letter to be replaced: ";
+    std::cin >> letter1;
+
+    std::cout << "Enter a letter to replace: ";
+    std::cin >> letter2;
+
+    int length = strlen(string);
+
+    for(int i = 0; i < length; i++)
+    {   
+        if(string[i] == letter1)
+        {
+            string[i] = letter2;
+        }
+    }
+
+    std::cout << string << std::endl;
+
+}
+
+bool isPascalCase(char array[])
+{
+    if((array[0] >= 'A' && array[0] <= 'z') && (array[0] < 'A' || array[0] > 'Z'))
+    {
+        array[0] -= 32;
+        return false;
+    }
+
+    int length = strlen(array);
+    for(int i = 2; i < length; i++)
+    {
+        if(array[i - 1] == ' ' && array[i] >= 'A' && array[i] <= 'z')
+        {
+            if(array[i] < 'A' || array[i] > 'Z')
+            {
+                array[i] -= 32;
+                return false;
+            }
+        }
+        else
+        {
+            if(array[i] >= 'A' && array[i] <= 'Z')
+            {
+                array[i] += 32;
+                return false;
+            }
+        }
+    }
+
+    return true;
+}
+
+void problem15()
+{
+    char input[256];
+
+    std::cout << "Enter a message: ";
+    std::cin.getline(input, 256);
+
+    bool isPascal = isPascalCase(input);
+
+    std::cout << std::boolalpha << isPascal << std::endl;
+
+    if(!isPascal)
+    {
+        while(!isPascalCase(input))
+        {
+
+        }
+
+        std::cout << input << std::endl;
+    }
+}
+
 
 int main()
 {
@@ -305,7 +457,12 @@ int main()
     //problem8();
     //problem9();
     //problem10();
-    problem11();
+    //problem11();
+    //problem12();
+    //problem13();
+    //problem14();
+    //problem15();
+
 
     return 0;
 }
