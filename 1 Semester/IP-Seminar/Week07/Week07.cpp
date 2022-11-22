@@ -313,9 +313,114 @@ void problem8()
     findPath(matrix, n, m, 0, 0, buffer, 0);
 }
 
+void showWinner(char board[3][3], int row, int col)
+{
+    char symbol = board[row][col] == 'X' ? '1' : '2';
+    board[0][0] = symbol;
+}
+
+bool rowWins(char board[3][3], int row)
+{
+    if(board[row][0] == board[row][1] && board[row][1] == board[row][2] && board[row][0] != '-')
+    {
+        showWinner(board, row, 0);
+        return true;
+    }
+
+    return false;
+}
+
+bool colWins(char board[3][3], int col)
+{   
+    if(board[0][col] == board[1][col] && board[1][col] == board[2][col] && board[0][col] != '-')
+    {
+        showWinner(board, 0, col);
+        return true;
+    }
+
+    return false;
+}
+
+bool diagonalWins(char board[3][3])
+{   
+    if((board[0][0] == board[1][1] && board[1][1] == board[2][2] && board[0][0] != '-')
+        || (board[0][2] && board[1][1] == board[2][0] && board[1][1] != '-'))
+    {
+        showWinner(board, 1, 1);
+        return true;
+    }
+
+    return false;
+}
+
+bool isFinished(char board[3][3])
+{   
+    for(int i = 0; i < 3; i++)
+    {
+        if(rowWins(board, i) || colWins(board, i))
+        {
+            return true;
+        }
+    }
+
+    return diagonalWins(board);
+}
+
+bool invalidCoordinates(char board[3][3], int row, int col)
+{
+    return row < 1 || row > 3 || col < 1 || col > 3 || board[row - 1][col - 1] != '-';
+}
+
+void printBoard(char board[3][3])
+{
+    for(int i = 0; i < 3; i++)
+    {
+        for(int j = 0; j < 3; j++)
+        {
+            std::cout << board[i][j] << " ";
+        }    
+        std::cout << std::endl;
+    }
+}
+
 void problem9()
 {
-    
+    char board[3][3] = {{'-', '-', '-'}, {'-', '-', '-'}, {'-', '-', '-'}};
+    bool winner = false;
+
+    int ctr = 0;
+    while(!isFinished(board) && ctr != 9)
+    {
+        int row, col;
+
+        std::cout << (ctr % 2 == 0 ? "Place X: " : "Place O: ");
+        std::cout << "Enter the cell's coordinates(1, 2, 3): ";
+        std::cin >> row >> col;
+
+        if(invalidCoordinates(board, row, col))
+        {
+            std::cout << "Invalid coordinates" << std::endl;
+        }
+        else
+        {
+            char symbol = ctr % 2 == 0 ? 'X' : 'O';
+            board[row - 1][col - 1] = symbol;
+
+            ctr++;
+            printBoard(board);
+        }
+    }
+
+    std::cout << "The game finished" << std::endl;
+
+    if(board[0][0] == '1')
+    {
+        std::cout << "X wins";
+    }
+    else if(board[0][0] == '2')
+    {
+        std::cout << "O wins";
+    }
 }
 
 
