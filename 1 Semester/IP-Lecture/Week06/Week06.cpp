@@ -12,7 +12,7 @@ int reduceN(int n)
     {
         copyOfN /= 10;
         digits++;
-    } while(copyOfN > 0);
+    } while (copyOfN > 0);
 
     n -= (n / (int)pow(10, digits - 1)) * pow(10, digits - 1);
 
@@ -23,7 +23,7 @@ bool contains(unsigned n, unsigned k)
 {
     while (k > 0)
     {
-        if(n % 10 != k % 10)
+        if (n % 10 != k % 10)
         {
             return false;
         }
@@ -52,25 +52,25 @@ void problem1()
     {
         in = in || contains(n, k);
         n /= 10;
-    } while(n > 0);
+    } while (n > 0);
 
     std::cout << std::boolalpha << in;
 }
 
 bool isNeighbor(unsigned n)
 {
-    while(n > 10)
+    while (n > 10)
     {
         int last = n % 10;
         int current = (n / 10) % 10;
 
-        if(last == current)
+        if (last == current)
         {
             return false;
         }
 
         n /= 10;
-    } 
+    }
 
     return true;
 }
@@ -85,9 +85,9 @@ void problem2()
     std::cout << "Enter b: ";
     std::cin >> b;
 
-    for(int i = b; i >= a; i--)
+    for (int i = b; i >= a; i--)
     {
-        if(isNeighbor(i))
+        if (isNeighbor(i))
         {
             max = i;
             break;
@@ -96,22 +96,21 @@ void problem2()
 
     for (int i = a; i <= b; i++)
     {
-        if(isNeighbor(i))
+        if (isNeighbor(i))
         {
             min = i;
             break;
         }
     }
 
-    if(min == -1)
+    if (min == -1)
     {
         std::cout << "No adjecent numbers";
     }
     else
     {
-        std::cout << max-min;
+        std::cout << max - min;
     }
-    
 }
 
 void moveToFront(char array[])
@@ -119,7 +118,7 @@ void moveToFront(char array[])
     int size = strlen(array);
     char element = array[size - 1];
 
-    for(int i = size - 1; i > 0; i--)
+    for (int i = size - 1; i > 0; i--)
     {
         array[i] = array[i - 1];
     }
@@ -131,7 +130,7 @@ void rotate(char firstArray[], char rotatedArray[], int characters)
 {
     strcpy(rotatedArray, firstArray);
 
-    for(int i = 0; i < characters; i++)
+    for (int i = 0; i < characters; i++)
     {
         moveToFront(rotatedArray);
     }
@@ -142,14 +141,14 @@ bool containsRotation(char array[], char combination[])
     int combLength = strlen(combination);
     int arrLength = strlen(array);
 
-    if(combLength > arrLength)
+    if (combLength > arrLength)
     {
         return false;
     }
 
-    for(int i = arrLength - 1; i >= arrLength - combLength; i--)
+    for (int i = arrLength - 1; i >= arrLength - combLength; i--)
     {
-        if(array[i] != combination[i - arrLength + combLength])
+        if (array[i] != combination[i - arrLength + combLength])
         {
             return false;
         }
@@ -160,7 +159,7 @@ bool containsRotation(char array[], char combination[])
 
 void copyArray(char destination[], char target[], int size)
 {
-    for(int i = 0; i < size; i++)
+    for (int i = 0; i < size; i++)
     {
         destination[i] = target[i];
     }
@@ -174,30 +173,29 @@ bool containsAllLetters(char array[], char letters[])
     int length1 = strlen(array);
     int length2 = strlen(letters);
 
-    for(int i = 0;  i < 26; i++)
+    for (int i = 0; i < 26; i++)
     {
         lettersHistogram1[i] = 0;
         lettersHistogram2[i] = 0;
     }
 
-
-    for(int i = 0; i < length1; i++)
+    for (int i = 0; i < length1; i++)
     {
         char letter = array[i] - 'a';
 
         lettersHistogram1[letter]++;
     }
 
-    for(int i = 0; i < length2; i++)
+    for (int i = 0; i < length2; i++)
     {
         char letter = letters[i] - 'a';
 
         lettersHistogram2[letter]++;
     }
 
-    for(int i = 0;  i < 26; i++)
+    for (int i = 0; i < 26; i++)
     {
-        if(lettersHistogram1[i] < lettersHistogram2[i])
+        if (lettersHistogram1[i] < lettersHistogram2[i])
         {
             return false;
         }
@@ -226,25 +224,24 @@ void problem3()
     std::cout << "Enter second array: ";
     std::cin.getline(secondArr, k + 1);
 
-
     bool contains = false;
-    for(int i = 0; i < k; i++)
+    for (int i = 0; i < k; i++)
     {
         char rotatedArray[1024];
         rotate(secondArr, rotatedArray, i);
 
-        for(int j = 0; j <= n - k; j++)
+        for (int j = 0; j <= n - k; j++)
         {
             char copy[1024];
 
             copyArray(copy, firstArr, n - j);
 
-            if(containsRotation(copy, rotatedArray))
+            if (containsRotation(copy, rotatedArray))
             {
 
-                std::cout << "Rotation \"" << rotatedArray << "\" found after deleting " 
-                    << n - j - k << " characters from the start and " 
-                    << j << " characters from the end";
+                std::cout << "Rotation \"" << rotatedArray << "\" found after deleting "
+                          << n - j - k << " characters from the start and "
+                          << j << " characters from the end";
 
                 return;
             }
@@ -254,10 +251,9 @@ void problem3()
 
 int main()
 {
-    //problem1();
-    //problem2();
-    //problem3();
-    
+    // problem1();
+    // problem2();
+    // problem3();
 
     return 0;
 }
