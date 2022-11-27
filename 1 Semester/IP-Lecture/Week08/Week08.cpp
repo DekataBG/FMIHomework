@@ -551,30 +551,34 @@ void problem3_28()
 bool equalDiagonals(char matrix[][30][7], int size)
 {
     char word1[181], word2[181];
+    for (int i = 0; i < 181; i++)
+    {
+        word1[i] = '\0';
+        word2[i] = '\0';
+    }
 
     for (int i = 0; i < size; i++)
     {
-        for (int j = 0; j < size; j++)
+        int j = i;
+
+        int length1 = strlen(matrix[i][j]);
+        int length2 = strlen(matrix[size - 1 - i][j]);
+
+        for (int k = 0; k < length1; k++)
         {
-            int length1 = strlen(matrix[i][j]);
-            int length2 = strlen(matrix[size - 1 - i][j]);
+            word1[strlen(word1)] = matrix[i][j][k];
+        }
 
-            for (int k = 0; k < length1; k++)
-            {
-                word1[strlen(word1)] = matrix[i][j][k];
-            }
-
-            for (int k = 0; k < length2; k++)
-            {
-                word2[strlen(word2)] = matrix[size - 1 - i][j][k];
-            }
+        for (int k = 0; k < length2; k++)
+        {
+            word2[strlen(word2)] = matrix[size - 1 - i][j][k];
         }
     }
 
-    std::cout << word1 << std::endl
-              << word2 << std::endl;
+    std::cout << word1 << " " << word2 << std::endl;
     return strcmp(word1, word2) == 0;
 }
+
 void problem3_29()
 {
     char wordMatrix[30][30][7];
@@ -587,11 +591,8 @@ void problem3_29()
     {
         for (int j = 0; j < n; j++)
         {
-            char word[7];
-
             std::cout << "Matrix [" << i << "][" << j << "]: ";
-            std::cin >> word;
-            word[strlen(word)] = '\0';
+            std::cin >> wordMatrix[i][j];
         }
     }
 
@@ -621,7 +622,8 @@ int main()
     // problem3_26();
     // problem3_27();
     // problem3_28();
-    problem3_29();
+    // problem3_29();
+    problem3_30();
 
     return 0;
 }
