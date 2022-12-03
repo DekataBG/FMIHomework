@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cstring>
 
 void swapValues(int &a, int &b)
 {   
@@ -46,7 +47,7 @@ void printSequence(int array[], int *ptr)
 {
     int index = 0;
 
-    while(*(array + index) != *ptr)
+    while((array + index) != ptr)
     {
         std::cout << *(array + index) << " ";
         index++;
@@ -57,18 +58,26 @@ void printSequence(int array[], int *ptr)
 
 void problem3()
 {
-    int array[5] = {5, 2, 3, -6, 9};
+    int n;
+    int array[100];
 
-    int *ptr = &array[4];
+    std::cout << "Enter n: ";
+    std::cin >> n;
 
-    printSequence(array, ptr);
+    for(int i = 0; i < n; i++)
+    {
+        std::cout << "Enter element: ";
+        std::cin >> array[i];
+    }
+
+    printSequence(array, &array[n - 1]);
 }
 
 int *middleElementPointer(int array[], int *ptr)
 {
     int index = 0;
 
-    while(*(array + index) != *ptr)
+    while((array + index) != ptr)
     {
         index++;
     }
@@ -78,14 +87,22 @@ int *middleElementPointer(int array[], int *ptr)
 
 void problem4()
 {
-    int array[7] = {7, 2, -5, 12, 16, 16, 19};
+    int n;
+    int array[100];
 
-    int *ptr = &array[7];
+    std::cout << "Enter n: ";
+    std::cin >> n;
 
-    std:: cout << *middleElementPointer(array, ptr);
+    for(int i = 0; i < n; i++)
+    {
+        std::cout << "Enter element: ";
+        std::cin >> array[i];
+    }
+
+    std:: cout << *middleElementPointer(array, &array[n - 1]);
 }
 
-int findAverage(int array[], int &size, int &average)
+void findAverage(int array[], int &size, int &average)
 {
     for(int i = 0; i < size; i++)
     {
@@ -113,19 +130,152 @@ void problem5()
     std::cout << "Average: " << average;
 }
 
-void findLetters(char word, char *lastLetter)
+void findLetters(char word[], char *lastLetter)
 {
+    int vowels = 0, consonants = 0;
 
+    while(lastLetter != &word[0])
+    {
+        if(*lastLetter <= 'z' && *lastLetter >= 'A')
+        {
+            if(*lastLetter == 'a' || *lastLetter == 'y' || *lastLetter == 'o' 
+                || *lastLetter == 'u' || *lastLetter == 'e' || *lastLetter == 'i')
+            {
+                vowels++;
+            }
+            else
+            {
+                consonants++;
+            }
+        }
+
+        *lastLetter--;
+    }
+
+    if(*lastLetter <= 'z' && *lastLetter >= 'A')
+    {
+        if(*lastLetter == 'a' || *lastLetter == 'y' || *lastLetter == 'o' 
+            || *lastLetter == 'u' || *lastLetter == 'e' || *lastLetter == 'i')
+        {
+            vowels++;
+        }
+        else
+        {
+            consonants++;
+        }
+    }
+
+    std::cout << "Vowels: " << vowels << std::endl 
+        << "Consonants: " << consonants << std::endl;
 }
 
 void problem6()
 {
-    char word[7] = {'r', 'p', 'q', 's', 'f', 'a', 'u'};
+    char word[50];
 
     std::cout << "Enter a string: ";
     std::cin >> word;
 
-    findLetters(word, &);
+    findLetters(word, &word[strlen(word)]);
+}
+
+void sort(int array[], int *ptr)
+{
+    int *ptrCpy = ptr;
+
+    bool sorted = false;
+    while(!sorted)
+    {
+        ptr = ptrCpy;
+        sorted = true;
+
+        while(ptr != &array[0])
+        {
+            if(*ptr < *(ptr - 1))
+            {
+                swapValues(*ptr, *(ptr - 1));
+                sorted = false;
+            }
+
+            ptr--;
+        }
+    }
+}
+
+void problem7()
+{
+    int n;
+    int array[100];
+
+    std::cout << "Enter n: ";
+    std::cin >> n;
+
+    for(int i = 0; i < n; i++)
+    {
+        std::cout << "Enter element: ";
+        std::cin >> array[i];
+    }
+
+    sort(array, &array[n]);
+
+    printSequence(array, &array[n - 1]);
+}
+
+void game(int array[], int size, int *ptr)
+{
+    bool found = false;
+
+    int ctr = 0;
+    while (!found)
+    {
+        if(array + ctr == ptr)
+        {
+            std::cout << "Misho found the element" << std::endl;
+            found = true;
+        }
+        if(array + size - 1 - ctr == ptr)
+        {
+            std::cout << "Ani found the element" << std::endl;
+            found = true;
+        }
+
+        ctr++;
+    }
+    
+}
+
+void problem8()
+{
+    int n, index;
+    int array[100];
+
+    std::cout << "Enter n: ";
+    std::cin >> n;
+
+    for(int i = 0; i < n; i++)
+    {
+        std::cout << "Enter element: ";
+        std::cin >> array[i];
+    }
+
+    std::cout << "Enter index of element: ";
+    std::cin >> index;
+
+    game(array, n, &array[index]);
+}
+
+void problem9()
+{
+    int n;
+
+    std::cout << "Enter n: ";
+    std::cin >> n;
+
+    char *ptr = (char*) &n;
+
+    int newVar = *ptr;
+
+    std::cout << newVar << std::endl;
 }
 
 
@@ -136,7 +286,10 @@ int main()
     // problem3();
     // problem4();
     // problem5();
-    problem6();
+    // problem6();
+    // problem7();
+    // problem8();
+    problem9();
 
 
     return 0;
