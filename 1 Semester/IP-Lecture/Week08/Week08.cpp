@@ -579,7 +579,7 @@ bool equalDiagonals(char matrix[][30][7], int size)
     return strcmp(word1, word2) == 0;
 }
 
-void problem3_29()
+void problem3_55()
 {
     char wordMatrix[30][30][7];
     int n;
@@ -601,11 +601,134 @@ void problem3_29()
               << std::endl;
 }
 
-void problem3_30()
+void problem3_56()
 {
+    char matrix[20][20][10];
+    int n;
+
+    std::cout << "Enter n: ";
+    std::cin >> n;
+
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < n; j++)
+        {
+            std::cout << "Matrix [" << i << "][" << j << "]: ";
+            std::cin >> matrix[i][j];
+        }
+    }
+
+    for(int i = 0; i < n / 2 + n % 2; i++)
+    {
+        for(int j = i; j < n - i; j++)
+        {
+            std::cout << matrix[i][j];
+        }
+        for(int k = 1 + i; k < n - i; k++)
+        {            
+            std::cout << matrix[k][n - 1 - i];
+        }
+        for(int l = n - 2 - i; l >= i; l--)
+        {
+            std::cout << matrix[n - 1 - i][l];
+        }
+        for(int r = n - 2 - i; r >= i + 1; r--)
+        {
+            std::cout << matrix[r][i];
+        }
+    }
 }
-void problem3_31()
+
+void insertAt(char array[][50], int size, int index, char element[])
 {
+    for(int i = size; i > index; i--)
+    {
+        strcpy(array[i], array[i - 1]);
+    }
+
+    strcpy(array[index], element);
+}
+
+void insertStudent(char students[][50], int size, char student[])
+{    
+    if(size == 0)
+    {
+        strcpy(students[0], student);
+        return;
+    }
+
+    for(int i = 0; i < size; i++)
+    {
+        if(strcmp(students[i], student) > 0)
+        {
+            insertAt(students, size, i, student);
+            break;
+        }
+    }
+}
+
+void insertGrade(char grades[][50], int size, char group[])
+{
+    if(size == 0)
+    {
+        strcpy(grades[0], group);
+        return;
+    }
+
+    for(int i = 0; i < size; i++)
+    {
+        if(strcmp(grades[i], group) > 0)
+        {
+            insertAt(grades, size, i, group);
+            break;
+        }
+    }
+}
+
+void problem3_57()
+{
+    int studentsCount, gradesCount;
+
+    char students[20][50];
+    char grades[20][50];
+
+    std::cout << "Enter students count: ";
+    std::cin >> studentsCount;
+    
+    std::cout << "Enter grades count: ";
+    std::cin >> gradesCount;
+
+    std::cin.ignore(2, '\n');
+
+    for(int i = 0; i < studentsCount; i++)
+    {
+        char student[50];
+
+        std::cout << "Enter a student: ";
+        std::cin.getline(student, 50);
+
+        insertStudent(students, i, student);
+    }
+
+    for(int i = 0; i < gradesCount; i++)
+    {
+        char grade[50];
+
+        std::cout << "Enter a grade: ";
+        std::cin.getline(grade, 12);
+
+        insertGrade(students, i, grade);
+    }
+
+    for(int i = 0; i < studentsCount; i++)
+    {
+        std::cout << students[i] << " ";
+    }
+    std::cout << std::endl;
+    for(int i = 0; i < gradesCount; i++)
+    {
+        std::cout << grades[i] << " ";
+    }
 }
 
 int main()
@@ -622,8 +745,10 @@ int main()
     // problem3_26();
     // problem3_27();
     // problem3_28();
-    // problem3_29();
-    problem3_30();
+    // problem3_55();
+    // problem3_56();
+    problem3_57();
+
 
     return 0;
 }
