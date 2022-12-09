@@ -618,21 +618,21 @@ void problem3_56()
         }
     }
 
-    for(int i = 0; i < n / 2 + n % 2; i++)
+    for (int i = 0; i < n / 2 + n % 2; i++)
     {
-        for(int j = i; j < n - i; j++)
+        for (int j = i; j < n - i; j++)
         {
             std::cout << matrix[i][j];
         }
-        for(int k = 1 + i; k < n - i; k++)
-        {            
+        for (int k = 1 + i; k < n - i; k++)
+        {
             std::cout << matrix[k][n - 1 - i];
         }
-        for(int l = n - 2 - i; l >= i; l--)
+        for (int l = n - 2 - i; l >= i; l--)
         {
             std::cout << matrix[n - 1 - i][l];
         }
-        for(int r = n - 2 - i; r >= i + 1; r--)
+        for (int r = n - 2 - i; r >= i + 1; r--)
         {
             std::cout << matrix[r][i];
         }
@@ -641,7 +641,7 @@ void problem3_56()
 
 void insertAt(char array[][50], int size, int index, char element[])
 {
-    for(int i = size; i > index; i--)
+    for (int i = size; i > index; i--)
     {
         strcpy(array[i], array[i - 1]);
     }
@@ -650,16 +650,22 @@ void insertAt(char array[][50], int size, int index, char element[])
 }
 
 void insertStudent(char students[][50], int size, char student[])
-{    
-    if(size == 0)
+{
+    if (size == 0)
     {
         strcpy(students[0], student);
         return;
     }
 
-    for(int i = 0; i < size; i++)
+    if (strcmp(students[size - 1], student) <= 0)
     {
-        if(strcmp(students[i], student) > 0)
+        insertAt(students, size, size, student);
+        return;
+    }
+
+    for (int i = 0; i < size; i++)
+    {
+        if (strcmp(students[i], student) > 0)
         {
             insertAt(students, size, i, student);
             break;
@@ -667,20 +673,106 @@ void insertStudent(char students[][50], int size, char student[])
     }
 }
 
-void insertGrade(char grades[][50], int size, char group[])
+void insertGrade(char grades[][50], int size, char grade[])
 {
-    if(size == 0)
+    if (size == 0)
     {
-        strcpy(grades[0], group);
+        strcpy(grades[0], grade);
         return;
     }
 
-    for(int i = 0; i < size; i++)
+    if (strcmp(grades[size - 1], grade) <= 0)
     {
-        if(strcmp(grades[i], group) > 0)
+        insertAt(grades, size, size, grade);
+        return;
+    }
+
+    for (int i = 0; i < size; i++)
+    {
+        if (strcmp(grades[i], grade) > 0)
         {
-            insertAt(grades, size, i, group);
+            insertAt(grades, size, i, grade);
             break;
+        }
+    }
+}
+
+bool sameFacultyNumber(char student[], char grade[])
+{
+    for (int i = 0; i < 6; i++)
+    {
+        if (student[i] != grade[i])
+        {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+bool containsFacultyNumber(char students[][50], int size, char grade[])
+{
+    for (int i = 0; i < size; i++)
+    {
+        if (sameFacultyNumber(students[i], grade))
+        {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+void findName(char students[][50], int size, char grade[], char name[])
+{
+    for (int i = 0; i < size; i++)
+    {
+        if (sameFacultyNumber(students[i], grade))
+        {
+            int j;
+            for (j = 7; students[i][j]; j++)
+            {
+                name[j - 7] = students[i][j];
+            }
+            name[j - 7] = '\0';
+
+            return;
+        }
+    }
+}
+
+void findGrade(char grade[], char mark[])
+{
+    mark[1] = grade[8];
+    mark[4] = '\0';
+
+    if (grade[7] == '5')
+    {
+        mark[0] = '6';
+        mark[2] = '0';
+        mark[3] = '0';
+    }
+    else
+    {
+        mark[0] = grade[7] + 1;
+        mark[2] = grade[9];
+        mark[3] = grade[10];
+    }
+}
+
+void printNames(char students[][50], int studentsSize, char grades[][50], int gradesSize)
+{
+    for (int i = 0; i < gradesSize; i++)
+    {
+        if (containsFacultyNumber(students, studentsSize, grades[i]))
+        {
+            char name[50];
+            char grade[5];
+
+            findName(students, studentsSize, grades[i], name);
+            findGrade(grades[i], grade);
+
+            std::cout << name << " " << grade << std::endl;
         }
     }
 }
@@ -694,13 +786,13 @@ void problem3_57()
 
     std::cout << "Enter students count: ";
     std::cin >> studentsCount;
-    
+
     std::cout << "Enter grades count: ";
     std::cin >> gradesCount;
 
     std::cin.ignore(2, '\n');
 
-    for(int i = 0; i < studentsCount; i++)
+    for (int i = 0; i < studentsCount; i++)
     {
         char student[50];
 
@@ -710,25 +802,17 @@ void problem3_57()
         insertStudent(students, i, student);
     }
 
-    for(int i = 0; i < gradesCount; i++)
+    for (int i = 0; i < gradesCount; i++)
     {
         char grade[50];
 
         std::cout << "Enter a grade: ";
         std::cin.getline(grade, 12);
 
-        insertGrade(students, i, grade);
+        insertGrade(grades, i, grade);
     }
 
-    for(int i = 0; i < studentsCount; i++)
-    {
-        std::cout << students[i] << " ";
-    }
-    std::cout << std::endl;
-    for(int i = 0; i < gradesCount; i++)
-    {
-        std::cout << grades[i] << " ";
-    }
+    printNames(students, studentsCount, grades, gradesCount);
 }
 
 int main()
@@ -747,8 +831,7 @@ int main()
     // problem3_28();
     // problem3_55();
     // problem3_56();
-    problem3_57();
-
+    // problem3_57();
 
     return 0;
 }
