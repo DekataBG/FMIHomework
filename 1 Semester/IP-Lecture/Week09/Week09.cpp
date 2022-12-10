@@ -277,6 +277,110 @@ void problem4_5()
               << subarrays(arrays, npointers, arrlenghts) << std::endl;
 }
 
+double sum(size_t n, double currentSum)
+{
+    if (n == 0)
+    {
+        return currentSum;
+    }
+
+    double element;
+
+    std::cout << "Enter element: ";
+    std::cin >> element;
+
+    currentSum += element;
+
+    return sum(n - 1, currentSum);
+}
+
+void problem4_6()
+{
+    int n;
+
+    std::cout << "Enter n: ";
+    std::cin >> n;
+
+    std::cout << sum(n, 0);
+}
+
+void reverse(int n)
+{
+    if (n == 0)
+    {
+        return;
+    }
+
+    int number;
+
+    std::cout << "Enter a number: ";
+    std::cin >> number;
+
+    reverse(n - 1);
+
+    std::cout << number << " ";
+}
+
+void problem4_7()
+{
+    int n;
+
+    std::cout << "Enter n: ";
+    std::cin >> n;
+
+    reverse(n);
+}
+
+void getmax1(long *pmax, size_t n)
+{
+    long array[50];
+
+    for (int i = 0; i < n; i++)
+    {
+        std::cout << "Enter element: ";
+        std::cin >> array[i];
+
+        if (pmax == nullptr || *pmax < array[i])
+        {
+            pmax = &array[i];
+        }
+    }
+
+    std::cout << *pmax << std::endl;
+}
+
+void getmax2(long *pmax, size_t n)
+{
+    if (n == 0)
+    {
+        std::cout << *pmax << std::endl;
+        return;
+    }
+
+    long element;
+
+    std::cout << "Enter element: ";
+    std::cin >> element;
+
+    if (pmax == nullptr || *pmax < element)
+    {
+        pmax = &element;
+    }
+
+    getmax2(pmax, n - 1);
+}
+
+void problem4_8()
+{
+    int n;
+
+    std::cout << "Enter n: ";
+    std::cin >> n;
+
+    getmax1(nullptr, n);
+    getmax2(nullptr, n);
+}
+
 int main()
 {
     // problem4_1();
@@ -284,6 +388,9 @@ int main()
     // problem4_3();
     // problem4_4();
     // problem4_5();
+    // problem4_6();
+    // problem4_7();
+    // problem4_8();
 
     return 0;
 }
