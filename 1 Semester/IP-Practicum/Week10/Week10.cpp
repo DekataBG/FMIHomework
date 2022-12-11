@@ -202,36 +202,53 @@ void problem8()
     generateBoolVectors(n, 0);
 }
 
-void generateCombinations(int numbers[], int k, int count, int index, int numbersToPrint[])
+void removeElement(int numbers[], int size, int index)
 {
-    if(count == k + 1)
+    for(int i = index; i < size - 1; i++)
     {
-        for(int i = 0; i < k; i++)
-        {
-            std::cout << numbersToPrint[i];
-        }
-        std::cout << std::endl;
-
-        return;
+        numbers[i] = numbers[i + 1];
     }
-
-    numbersToPrint[count] = numbers[index];
-
-    generateCombinations(numbers, k, ++count, ++index, numbersToPrint);
 }
 
-void generateCombinations2(int numbers[],int n, int k, int index, int count)
+void addElement(int numbers[], int size, int index, int element)
+{
+    for(int i = size; i > index; i--)
+    {
+        numbers[i] = numbers[i - 1];
+    }
+
+    numbers[index] = element;
+}
+
+void printArray(int numbers[], int size)
+{
+    for(int i = 0; i < size; i++)
+    {
+        std::cout << numbers[i] << " ";
+    }
+
+    std::cout << std::endl;
+}
+
+void generateCombinations(int numbers[], int size, int index, int elements[], int count, int k)
 {
     if(count == k)
     {
-        std::cout << std::endl;
+        printArray(elements, count);
         return;
     }
 
-    std::cout << numbers[index] << " ";
-    for(int i = index + 1; i < n; i++)
+    for(int i = index; i < size; i++)
     {
-        generateCombinations2(numbers, n, k, i, ++count);
+        int removedElement = numbers[i];
+
+        elements[count] = removedElement;
+
+        removeElement(numbers, size, i);
+
+        generateCombinations(numbers, size - 1, i, elements, count + 1, k);
+
+        addElement(numbers, size, i, removedElement);
     }
 }
 
@@ -252,8 +269,7 @@ void problem9()
         std::cin >> array[i];
     }
 
-    // generateCombinations(array, k, 0, 0, numbersToPrint);
-    generateCombinations2(array, n, k, -1, 0);
+    generateCombinations(array, n, 0, numbersToPrint, 0, k);
 }
 
 
@@ -267,7 +283,7 @@ int main()
     // problem6();
     // problem7();
     // problem8();
-    problem9();
+    // problem9();
 
 
     return 0;
