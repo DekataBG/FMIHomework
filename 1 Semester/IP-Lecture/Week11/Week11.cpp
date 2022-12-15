@@ -15,7 +15,7 @@ double hermitePolynomial(double x, int n)
     return 2 * x * hermitePolynomial(x, n - 1) + 2 * (n - 1) * hermitePolynomial(x, n - 2);
 }
 
-void problem5_2()
+void problem5_1()
 {
     int n;
     double x;
@@ -39,7 +39,7 @@ double mult(double a, double b)
     return a + mult(a, b - 1);
 }
 
-void problem5_3()
+void problem5_2()
 {
     double a, b;
 
@@ -62,7 +62,7 @@ int gcd(int a, int b)
     return gcd(b, a % b);
 }
 
-void problem5_5()
+void problem5_3()
 {
     int a, b;
 
@@ -85,7 +85,7 @@ int product(int n, int k, int current)
     return current * product(n, k, current + k);
 }
 
-void problem5_7()
+void problem5_4()
 {
     int n, k;
 
@@ -108,7 +108,7 @@ int sumOfDigits(int n, int k, int sum)
     return sumOfDigits(n / k, k, sum + n % k);
 }
 
-void problem5_10()
+void problem5_5()
 {
     int n, k;
 
@@ -138,7 +138,7 @@ bool contains(int n, int k, int digits)
     return contains(n / 10, k, digits + 1);
 }
 
-void problem5_11()
+void problem5_6()
 {
     int n, k;
 
@@ -163,7 +163,7 @@ bool isFibonacci(int n, int previous, int current)
     return isFibonacci(n, current, previous + current);
 }
 
-void problem5_19()
+void problem5_7()
 {
     int n;
 
@@ -186,7 +186,7 @@ int findBiggestElement(int array[], int n)
     return array[n - 1] >= biggestElement ? array[n - 1] : biggestElement;
 }
 
-void problem5_28()
+void problem5_8()
 {
     int n;
     int array[50];
@@ -216,7 +216,7 @@ void insertSorted(int x, int array[], int n)
     insertSorted(x, array, n - 1);
 }
 
-void problem5_31()
+void problem5_9()
 {
     int n, element;
     int array[50];
@@ -259,7 +259,7 @@ int compare(char string1[], char string2[])
     return compare(string1 + 1, string2 + 1);
 }
 
-void problem5_34()
+void problem5_10()
 {
     char string1[50];
     char string2[50];
@@ -289,16 +289,16 @@ void problem5_34()
 
 int main()
 {
+    // problem5_1();
     // problem5_2();
     // problem5_3();
+    // problem5_4();
+    // problem5_5();
+    // problem5_6();
     // problem5_7();
-    // problem5_7();
+    // problem5_8();
+    // problem5_9();
     // problem5_10();
-    // problem5_11();
-    // problem5_19();
-    // problem5_28();
-    // problem5_31();
-    // problem5_34();
 
 
     return 0;
